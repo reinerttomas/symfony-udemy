@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./.docker/nginx/Dockerfile
+    container_name: symfony-udemy-nginx
+    volumes:
+      - ./:/var/www/html/
+      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./.docker/nginx/sites/:/etc/nginx/sites-available
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d
+    depends_on:
+      - database
+      - php
+    ports:
+      - "8080:80"
+    networks:
+      - symfony-udemy
+
+  php:
+    build:
+      context: .
+      dockerfile: ./.docker/php/Dockerfile
+    container_name: symfony-udemy-php
+    environment:
+      TZ: Europe/Prague
+    volumes:
+      - ./:/var/www/html/
+      - .docker/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.dev.ini
+    depends_on:
+      - database
+    networks:
+      - symfony-udemy
+
+  adminer:
+    image: dockette/adminer:dg
+    container_name: symfony-udemy-adminer
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - "8000:80"
+    networks:
+      - symfony-udemy
+
+  database:
+    image: mariadb:10.6.4
+    container_name: symfony-udemy-database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony_udemy
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpass
+      TZ: Europe/Prague
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - symfony-udemy
+
+networks:
+  symfony-udemy:
+
+volumes:
+  db_data:
