@@ -1,4 +1,4 @@
-FROM php:8.1-rc-fpm-alpine
+FROM php:8.0-fpm-alpine
 
 # Install dependencies
 RUN set -eux \
