@@ -1,0 +1,30 @@
+{
+  "name": "symfony-udemy",
+  "version": "1.0.0",
+  "description": "Source: https://www.udemy.com/course/symfony-4-web-development-from-beginner-to-advanced",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reinerttomas/symfony-udemy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reinerttomas/symfony-udemy/issues"
+  },
+  "homepage": "https://github.com/reinerttomas/symfony-udemy#readme",
+  "devDependencies": {
+    "@symfony/stimulus-bridge": "^2.1.0",
+    "@symfony/webpack-encore": "^1.6.1",
+    "webpack-notifier": "^1.14.1"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
+  }
+}

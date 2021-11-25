@@ -4,7 +4,9 @@ FROM php:8.0-fpm-alpine
 RUN set -eux \
     && apk update \
     && apk add --no-cache \
-        unzip
+        unzip \
+        nodejs \
+        npm
 
 # https://github.com/mlocati/docker-php-extension-installer
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
