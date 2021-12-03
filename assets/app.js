@@ -5,6 +5,9 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
+// bootstrap theme
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
 
@@ -15,6 +18,6 @@ import $ from 'jquery';
 // ./ (or ../) means to look for a local file
 import greet from './greet';
 
-$(document).ready(function() {
-    $('body').prepend('<h1>'+greet('jill')+'</h1>');
-});
+// $(document).ready(function() {
+//     $('body').prepend('<h1>'+greet('jill')+'</h1>');
+// });

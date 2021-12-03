@@ -20,16 +20,10 @@ php:
 db:
 	@docker exec -it $(DATABASE) sh
 
-### DOCTRINE ###
-migration-list:
-	@docker exec -it $(PHP) bin/console d:m:list
-
-migration-diff:
-	@docker exec -it $(PHP) bin/console d:m:diff
-
-migration-mig:
-	@docker exec -it $(PHP) bin/console d:m:m
-
 ### COMPOSER ###
 composer:
 	@docker exec -e APP_ENV=test -it $(PHP) composer install
+
+### ANALYSIS ###
+phpstan:
+	@docker exec -e APP_ENV=test -it $(PHP) composer phpstan

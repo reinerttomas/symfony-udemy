@@ -5,7 +5,7 @@ namespace App\Exception;
 
 use Exception as ExceptionPhp;
 
-abstract class Exception extends ExceptionPhp implements Throwable
+abstract class Exception extends ExceptionPhp
 {
 
 }

@@ -24,9 +24,13 @@ abstract class AbstractEnum implements EnumInterface
         $class = new ReflectionClass(__CLASS__);
         $constArray = [];
 
-        foreach ($class->getConstants() as $constName => $value) {
+        /**
+         * @var string $constName
+         * @var string|int $constValue
+         */
+        foreach ($class->getConstants() as $constName => $constValue) {
             if (Strings::startsWith($constName, $this->getEnumPrefix())) {
-                $constArray[$constName] = $value;
+                $constArray[$constName] = $constValue;
             }
         }
 

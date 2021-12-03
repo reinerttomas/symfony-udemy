@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Article!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h2>{{ app.request.attributes.get("_controller") }}</h2>
+        </div>
+
+        {{ include('flash.html.twig') }}
+
+        {{ form(form) }}
+    </div>
+{% endblock %}

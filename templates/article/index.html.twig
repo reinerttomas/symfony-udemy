@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Article!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h2>{{ app.request.attributes.get("_controller") }}</h2>
+        </div>
+
+        {{ include('flash.html.twig') }}
+
+        <div class="mb-4">
+            <a class="btn btn-primary" href="{{ url('article-create') }}">Create</a>
+        </div>
+        <div class="mb-4">
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Published At</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% if articles|length > 0 %}
+                        {% for article in articles %}
+                            <tr>
+                                <th scope="row">{{ article.id }}</th>
+                                <td>{{ article.title }}</td>
+                                <td>{{ article.createdAt|date('d.m.Y H:i') }}</td>
+                                <td>{{ article.publishedAt|date('d.m.Y H:i') }}</td>
+                                <td>
+                                    <a class="btn btn-outline-dark" href="{{ url('article-detail', { id: article.id }) }}">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <a class="btn btn-outline-dark" href="{{ url('article-update', { id: article.id }) }}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-outline-dark" href="{{ url('article-delete', { id: article.id }) }}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5">no rows</td>
+                        </tr>
+                    {% endif %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
