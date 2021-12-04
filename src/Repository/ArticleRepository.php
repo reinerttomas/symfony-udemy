@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Repository;
 
 use App\Entity\Article;
-use App\Exception\ORM\ORMStoreException;
 use App\Exception\Logic\NotFoundException;
+use App\Exception\ORM\ORMStoreException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Throwable;

@@ -7,5 +7,4 @@ use App\Exception\Exception;
 
 final class InvalidArgumentException extends Exception
 {
-
 }

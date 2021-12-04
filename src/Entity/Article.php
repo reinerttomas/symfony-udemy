@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -88,7 +89,8 @@ class Article
     public function changeTitle(string $title): Article
     {
         $slugger = new AsciiSlugger();
-        $slug = $slugger->slug(u($title)->lower());
+        $slug = u($title)->lower()->toString();
+        $slug = $slugger->slug($slug)->toString();
 
         $this->title = $title;
         $this->slug = $slug;

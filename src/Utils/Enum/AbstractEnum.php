@@ -21,7 +21,7 @@ abstract class AbstractEnum implements EnumInterface
 
     public function getEnum(): array
     {
-        $class = new ReflectionClass(__CLASS__);
+        $class = new ReflectionClass(self::class);
         $constArray = [];
 
         /**
@@ -37,5 +37,5 @@ abstract class AbstractEnum implements EnumInterface
         return $constArray;
     }
 
-    protected abstract function getEnumPrefix(): string;
+    abstract protected function getEnumPrefix(): string;
 }

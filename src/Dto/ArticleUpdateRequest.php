@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Dto;
 
 use App\Entity\Article;
 use DateTime;
@@ -15,7 +15,7 @@ class ArticleUpdateRequest
         min: 2,
         max: 10,
         minMessage: "Article title must be at least {{ limit }} characters long",
-        maxMessage: "Article title cannot be longer than {{ limit }} characters"
+        maxMessage: "Article title cannot be longer than {{ limit }} characters",
     )]
     public string $title;
 

@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Dto\ArticleUpdateRequest;
 use App\Entity\Article;
 use App\Exception\ORM\ORMStoreException;
-use App\Form\ArticleUpdateRequest;
 use App\Repository\ArticleRepository;
 use DateTime;
 

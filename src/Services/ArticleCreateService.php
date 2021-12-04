@@ -3,11 +3,10 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Dto\ArticleCreateRequest;
 use App\Entity\Article;
 use App\Exception\ORM\ORMStoreException;
-use App\Form\ArticleCreateRequest;
 use App\Repository\ArticleRepository;
-use DateTimeImmutable;
 
 class ArticleCreateService
 {
@@ -26,7 +25,7 @@ class ArticleCreateService
         $article = new Article(
             $request->title,
             $request->content,
-            new DateTimeImmutable(),
+            $request->createdAt,
             $request->publishedAt,
         );
 

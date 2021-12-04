@@ -27,3 +27,15 @@ composer:
 ### ANALYSIS ###
 phpstan:
 	@docker exec -e APP_ENV=test -it $(PHP) composer phpstan
+
+parallel-lint:
+	@docker exec -e APP_ENV=test -it $(PHP) composer parallel-lint
+
+css:
+	@docker exec -e APP_ENV=test -it $(PHP) composer css
+
+fcs:
+	@docker exec -e APP_ENV=test -it $(PHP) composer fcs
+
+ci:
+	@docker exec -e APP_ENV=test -it $(PHP) composer ci

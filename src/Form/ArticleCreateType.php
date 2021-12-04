@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Dto\ArticleCreateRequest;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,24 +22,23 @@ class ArticleCreateType extends AbstractType
                 'content',
                 TextareaType::class,
                 [
-                    'attr' => ['rows' => 6]
-                ]
+                    'attr' => ['rows' => 6],
+                ],
             )
             ->add(
                 'publishedAt',
                 DateType::class,
                 [
                     'widget' => 'single_text',
-                ]
+                ],
             )
             ->add(
                 'save',
                 SubmitType::class,
                 [
-                    'label' => 'Save'
-                ]
+                    'label' => 'Save',
+                ],
             );
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

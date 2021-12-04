@@ -7,5 +7,4 @@ use Exception as ExceptionPhp;
 
 abstract class Exception extends ExceptionPhp
 {
-
 }

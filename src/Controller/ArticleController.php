@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\Traits\FlashTrait;
+use App\Dto\ArticleCreateRequest;
+use App\Dto\ArticleUpdateRequest;
 use App\Exception\Logic\NotFoundException;
 use App\Exception\ORM\ORMStoreException;
-use App\Form\ArticleCreateRequest;
 use App\Form\ArticleCreateType;
-use App\Form\ArticleUpdateRequest;
 use App\Form\ArticleUpdateType;
 use App\Services\ArticleCreateService;
 use App\Services\ArticleFetchService;
@@ -49,7 +49,7 @@ class ArticleController extends AbstractController
             'article/index.html.twig',
             [
                 'articles' => $articles,
-            ]
+            ],
         );
     }
 
@@ -66,7 +66,7 @@ class ArticleController extends AbstractController
             'article/detail.html.twig',
             [
                 'article' => $article,
-            ]
+            ],
         );
     }
 
@@ -87,9 +87,9 @@ class ArticleController extends AbstractController
                     'article-detail',
                     [
                         'id' => $article->getId(),
-                    ]
+                    ],
                 );
-            } catch (ORMStoreException $e) {
+            } catch (ORMStoreException) {
                 $this->addFlashError('Article form error.');
             }
         }
@@ -98,7 +98,7 @@ class ArticleController extends AbstractController
             'article/create.html.twig',
             [
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
@@ -125,9 +125,9 @@ class ArticleController extends AbstractController
                     'article-detail',
                     [
                         'id' => $article->getId(),
-                    ]
+                    ],
                 );
-            } catch (ORMStoreException $e) {
+            } catch (ORMStoreException) {
                 $this->addFlashError('Article form error.');
             }
         }
@@ -136,7 +136,7 @@ class ArticleController extends AbstractController
             'article/update.html.twig',
             [
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 
@@ -152,7 +152,7 @@ class ArticleController extends AbstractController
         try {
             $this->articleRemoveService->remove($article);
             $this->addFlashSuccess('Article remove success.');
-        } catch (ORMStoreException $e) {
+        } catch (ORMStoreException) {
             $this->addFlashError('Article delete error.');
         }
 
