@@ -7,7 +7,7 @@ use App\Entity\Article;
 use App\Exception\Logic\NotFoundException;
 use App\Repository\ArticleRepository;
 
-class FetchArticleService
+class ArticleFetchService
 {
     private ArticleRepository $articleRepository;
 

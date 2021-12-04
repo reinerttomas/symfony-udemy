@@ -8,7 +8,7 @@ use App\Exception\ORM\ORMStoreException;
 use App\Repository\ArticleRepository;
 use DateTime;
 
-class RemoveArticleService
+class ArticleRemoveService
 {
     private ArticleRepository $articleRepository;
 

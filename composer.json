@@ -29,6 +29,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "fakerphp/faker": "^1.16",
         "jetbrains/phpstorm-attributes": "^1.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^1.2",
@@ -75,6 +76,9 @@
         "phpstan": [
             "@php bin/console cache:warmup --env=test",
             "phpstan analyse -c phpstan.neon --no-progress --memory-limit 1G"
+        ],
+        "fixtures": [
+            "@php bin/console doctrine:fixtures:load -n"
         ]
     },
     "conflict": {

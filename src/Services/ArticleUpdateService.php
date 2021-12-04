@@ -5,11 +5,11 @@ namespace App\Services;
 
 use App\Entity\Article;
 use App\Exception\ORM\ORMStoreException;
-use App\Form\UpdateArticleRequest;
+use App\Form\ArticleUpdateRequest;
 use App\Repository\ArticleRepository;
 use DateTime;
 
-class UpdateArticleService
+class ArticleUpdateService
 {
     private ArticleRepository $articleRepository;
 
@@ -21,7 +21,7 @@ class UpdateArticleService
     /**
      * @throws ORMStoreException
      */
-    public function updateFromRequest(Article $article, UpdateArticleRequest $request): Article
+    public function updateFromRequest(Article $article, ArticleUpdateRequest $request): Article
     {
         $article
             ->changeTitle($request->title)

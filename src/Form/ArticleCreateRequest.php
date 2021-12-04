@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\Article;
 use DateTime;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class UpdateArticleRequest
+class ArticleCreateRequest
 {
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -26,14 +24,8 @@ class UpdateArticleRequest
     #[Assert\Type(DateTime::class)]
     public DateTime $publishedAt;
 
-    #[Pure]
-    public static function from(Article $article): UpdateArticleRequest
+    public function __construct()
     {
-        $request = new UpdateArticleRequest();
-        $request->title = $article->getTitle();
-        $request->content = $article->getContent();
-        $request->publishedAt = $article->getPublishedAt();
-
-        return $request;
+        $this->publishedAt = new DateTime();
     }
 }

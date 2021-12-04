@@ -5,14 +5,14 @@ namespace App\Controller;
 
 use App\Exception\Logic\NotFoundException;
 use App\Exception\ORM\ORMStoreException;
-use App\Form\CreateArticleRequest;
-use App\Form\CreateArticleType;
-use App\Form\UpdateArticleRequest;
-use App\Form\UpdateArticleType;
-use App\Services\FetchArticleService;
-use App\Services\CreateArticleService;
-use App\Services\RemoveArticleService;
-use App\Services\UpdateArticleService;
+use App\Form\ArticleCreateRequest;
+use App\Form\ArticleCreateType;
+use App\Form\ArticleUpdateRequest;
+use App\Form\ArticleUpdateType;
+use App\Services\ArticleFetchService;
+use App\Services\ArticleCreateService;
+use App\Services\ArticleRemoveService;
+use App\Services\ArticleUpdateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,28 +22,27 @@ class ArticleController extends AbstractController
 {
     use FlashTrait;
 
-    private FetchArticleService $fetchArticleService;
-    private CreateArticleService $createArticleService;
-    private UpdateArticleService $updateArticleService;
-    private RemoveArticleService $removeArticleService;
+    private ArticleFetchService $articleFetchService;
+    private ArticleCreateService $articleCreateService;
+    private ArticleUpdateService $articleUpdateService;
+    private ArticleRemoveService $articleRemoveService;
 
     public function __construct(
-        FetchArticleService  $fetchArticleService,
-        CreateArticleService $createArticleService,
-        UpdateArticleService $updateArticleService,
-        RemoveArticleService $removeArticleService,
+        ArticleFetchService $articleFetchService,
+        ArticleCreateService $articleCreateService,
+        ArticleUpdateService $articleUpdateService,
+        ArticleRemoveService $articleRemoveService,
     ) {
-        $this->fetchArticleService = $fetchArticleService;
-        $this->createArticleService = $createArticleService;
-        $this->updateArticleService = $updateArticleService;
-        $this->removeArticleService = $removeArticleService;
+        $this->articleFetchService = $articleFetchService;
+        $this->articleCreateService = $articleCreateService;
+        $this->articleUpdateService = $articleUpdateService;
+        $this->articleRemoveService = $articleRemoveService;
     }
-
 
     #[Route('/article', name: 'article-list')]
     public function index(): Response
     {
-        $articles = $this->fetchArticleService->getAllNotRemoved();
+        $articles = $this->articleFetchService->getAllNotRemoved();
 
         return $this->render(
             'article/index.html.twig',
@@ -57,7 +56,7 @@ class ArticleController extends AbstractController
     public function detail(int $id): Response
     {
         try {
-            $article = $this->fetchArticleService->get($id);
+            $article = $this->articleFetchService->get($id);
         } catch (NotFoundException $e) {
             throw $this->createNotFoundException($e->getMessage(), $e);
         }
@@ -73,14 +72,14 @@ class ArticleController extends AbstractController
     #[Route('/article/create', name: 'article-create')]
     public function create(Request $request): Response
     {
-        $createArticleRequest = new CreateArticleRequest();
+        $articleCreateRequest = new ArticleCreateRequest();
 
-        $form = $this->createForm(CreateArticleType::class, $createArticleRequest);
+        $form = $this->createForm(ArticleCreateType::class, $articleCreateRequest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $article = $this->createArticleService->createFromRequest($createArticleRequest);
+                $article = $this->articleCreateService->createFromRequest($articleCreateRequest);
                 $this->addFlashSuccess('Article create success.');
 
                 return $this->redirectToRoute(
@@ -106,19 +105,19 @@ class ArticleController extends AbstractController
     public function update(Request $request, int $id): Response
     {
         try {
-            $article = $this->fetchArticleService->get($id);
+            $article = $this->articleFetchService->get($id);
         } catch (NotFoundException $e) {
             throw $this->createNotFoundException($e->getMessage(), $e);
         }
 
-        $updateArticleRequest = UpdateArticleRequest::from($article);
+        $articleUpdateRequest = ArticleUpdateRequest::from($article);
 
-        $form = $this->createForm(UpdateArticleType::class, $updateArticleRequest);
+        $form = $this->createForm(ArticleUpdateType::class, $articleUpdateRequest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $article = $this->updateArticleService->updateFromRequest($article, $updateArticleRequest);
+                $article = $this->articleUpdateService->updateFromRequest($article, $articleUpdateRequest);
                 $this->addFlashSuccess('Article update success.');
 
                 return $this->redirectToRoute(
@@ -144,13 +143,13 @@ class ArticleController extends AbstractController
     public function delete(int $id): Response
     {
         try {
-            $article = $this->fetchArticleService->get($id);
+            $article = $this->articleFetchService->get($id);
         } catch (NotFoundException $e) {
             throw $this->createNotFoundException($e->getMessage(), $e);
         }
 
         try {
-            $this->removeArticleService->remove($article);
+            $this->articleRemoveService->remove($article);
             $this->addFlashSuccess('Article remove success.');
         } catch (ORMStoreException $e) {
             $this->addFlashError('Article delete error.');

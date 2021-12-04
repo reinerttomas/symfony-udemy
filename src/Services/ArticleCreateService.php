@@ -5,11 +5,11 @@ namespace App\Services;
 
 use App\Entity\Article;
 use App\Exception\ORM\ORMStoreException;
-use App\Form\CreateArticleRequest;
+use App\Form\ArticleCreateRequest;
 use App\Repository\ArticleRepository;
 use DateTimeImmutable;
 
-class CreateArticleService
+class ArticleCreateService
 {
     private ArticleRepository $articleRepository;
 
@@ -21,7 +21,7 @@ class CreateArticleService
     /**
      * @throws ORMStoreException
      */
-    public function createFromRequest(CreateArticleRequest $request): Article
+    public function createFromRequest(ArticleCreateRequest $request): Article
     {
         $article = new Article(
             $request->title,
