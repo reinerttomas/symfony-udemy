@@ -3,14 +3,15 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Controller\Traits\FlashTrait;
 use App\Exception\Logic\NotFoundException;
 use App\Exception\ORM\ORMStoreException;
 use App\Form\ArticleCreateRequest;
 use App\Form\ArticleCreateType;
 use App\Form\ArticleUpdateRequest;
 use App\Form\ArticleUpdateType;
-use App\Services\ArticleFetchService;
 use App\Services\ArticleCreateService;
+use App\Services\ArticleFetchService;
 use App\Services\ArticleRemoveService;
 use App\Services\ArticleUpdateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
