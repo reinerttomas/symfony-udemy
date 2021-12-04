@@ -47,3 +47,7 @@ parameters:
     # @see https://blog.martinhujer.cz/how-to-configure-phpstan-for-symfony-applications/
     doctrine:
         objectManagerLoader: build/phpstan/object-manager.php
+
+    # @see https://phpstan.org/user-guide/stub-files
+    stubFiles:
+        - build/phpstan/stubs/ORM/AbstractQuery.stub

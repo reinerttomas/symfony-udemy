@@ -52,10 +52,7 @@ class ArticleRepository extends ServiceEntityRepository
         $qb->where($qb->expr()->eq('a.isRemoved', ':isRemoved'))
             ->setParameter('isRemoved', false);
 
-        /** @var array<int, Article> $result */
-        $result = $qb->getQuery()->getResult();
-
-        return $result;
+        return $qb->getQuery()->getResult();
     }
 
     /**
