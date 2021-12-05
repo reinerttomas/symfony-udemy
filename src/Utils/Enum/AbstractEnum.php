@@ -12,7 +12,7 @@ abstract class AbstractEnum implements EnumInterface
     {
         $enumArray = [];
 
-        foreach (self::getEnum() as $enum) {
+        foreach (static::getEnum() as $enum) {
             $enumArray[] = $enum;
         }
 
@@ -21,7 +21,7 @@ abstract class AbstractEnum implements EnumInterface
 
     public function getEnum(): array
     {
-        $class = new ReflectionClass(self::class);
+        $class = new ReflectionClass(static::class);
         $constArray = [];
 
         /**

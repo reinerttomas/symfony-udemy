@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Signin</title>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('signin') }}
+        {% endblock %}
+
+    </head>
+    <body class="text-center">
+        <main class="form-signin">
+            <form action="{{ url('login') }}" method="post">
+                <img class="mb-4" src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <div class="form-floating">
+                    <input type="email"
+                           class="form-control"
+                           id="username"
+                           placeholder="name@example.com"
+                           name="_username"
+                           value="{{ last_username }}">
+                    <label for="username">Email</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password"
+                           class="form-control"
+                           id="password"
+                           placeholder="Password"
+                           name="_password">
+                    <label for="password">Password</label>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                {# If you want to control the URL the user is redirected to on success
+                    <input type="hidden" name="_target_path" value="/account"/> #}
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                <p class="mt-5 mb-3 text-muted">© {{ 'now'|date('Y') }}</p>
+            </form>
+        </main>
+    </body>
+</html>

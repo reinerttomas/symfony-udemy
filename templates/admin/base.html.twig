@@ -30,7 +30,7 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link {{ menu is same as('home') ? 'active' }}"
-                               href="{{ url('home') }}">
+                               href="{{ url('admin-home') }}">
                                 Home
                             </a>
                         </li>
@@ -46,7 +46,15 @@
                                 User
                             </a>
                         </li>
+
                     </ul>
+
+                    {% if app.user %}
+                        <a class="btn btn-outline-danger" href="{{ url('logout') }}">Sign Out</a>
+                    {% else %}
+                        <a class="btn btn-outline-success" href="{{ url('login') }}">Sign In</a>
+                    {% endif %}
+
                 </div>
             </div>
         </nav>
