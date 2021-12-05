@@ -39,3 +39,7 @@ fcs:
 
 ci:
 	@docker exec -e APP_ENV=test -it $(PHP) composer ci
+
+### DATA FIXTURES ###
+fixtures:
+	@docker exec -e APP_ENV=test -it $(PHP) composer fixtures

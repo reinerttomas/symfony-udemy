@@ -85,7 +85,10 @@
         "ccs": "phpcs --standard=phpcs.xml",
         "fcs": "phpcbf --standard=phpcs.xml",
         "fixtures": [
-            "@php bin/console doctrine:fixtures:load -n"
+            "bin/console doctrine:database:drop -n -f --if-exists",
+            "bin/console doctrine:database:create -n --if-not-exists",
+            "bin/console doctrine:migration:migrate -n",
+            "bin/console doctrine:fixtures:load -n"
         ],
         "ci": [
             "@phpstan",

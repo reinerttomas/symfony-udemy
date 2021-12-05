@@ -1,0 +1,66 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Hello User!{% endblock %}
+{% set menu = 'user' %}
+
+{% block body %}
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between my-4">
+            <h1 class="h3 mb-0">User</h1>
+            <a class="btn btn-outline-dark" href="{{ url('admin-user-create') }}">
+                <i class="fas fa-plus-circle"></i>
+            </a>
+        </div>
+
+        {{ include('admin/flash.html.twig') }}
+
+        <div class="mb-4">
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Updated At</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% if users|length > 0 %}
+                        {% for user in users %}
+                            <tr>
+                                <th scope="row">{{ user.id }}</th>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.surname }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.createdAt|date('d.m.Y H:i') }}</td>
+                                <td>{{ user.updatedAt ? user.updatedAt|date('d.m.Y H:i') }}</td>
+                                <td>
+                                    <a class="btn btn-outline-dark" href="{{ url('admin-user-detail', { id: user.id }) }}">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <a class="btn btn-outline-dark" href="{{ url('admin-user-update', { id: user.id }) }}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-outline-dark" href="{{ url('admin-user-password', { id: user.id }) }}">
+                                        <i class="fas fa-lock"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5">no rows</td>
+                        </tr>
+                    {% endif %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
