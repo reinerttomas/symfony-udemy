@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Hello Article!{% endblock %}
 {% set menu = 'article' %}
@@ -7,12 +7,12 @@
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between my-4">
             <h1 class="h3 mb-0">Article</h1>
-            <a class="btn btn-outline-dark" href="{{ url('article-create') }}">
+            <a class="btn btn-outline-dark" href="{{ url('admin-article-create') }}">
                 <i class="fas fa-plus-circle"></i>
             </a>
         </div>
 
-        {{ include('flash.html.twig') }}
+        {{ include('admin/flash.html.twig') }}
 
         <div class="mb-4">
             <div class="table-responsive">
@@ -36,13 +36,13 @@
                                 <td>{{ article.createdAt|date('d.m.Y H:i') }}</td>
                                 <td>{{ article.publishedAt|date('d.m.Y H:i') }}</td>
                                 <td>
-                                    <a class="btn btn-outline-dark" href="{{ url('article-detail', { id: article.id }) }}">
+                                    <a class="btn btn-outline-dark" href="{{ url('admin-article-detail', { id: article.id }) }}">
                                         <i class="fas fa-info-circle"></i>
                                     </a>
-                                    <a class="btn btn-outline-dark" href="{{ url('article-update', { id: article.id }) }}">
+                                    <a class="btn btn-outline-dark" href="{{ url('admin-article-update', { id: article.id }) }}">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a class="btn btn-outline-dark" href="{{ url('article-delete', { id: article.id }) }}">
+                                    <a class="btn btn-outline-dark" href="{{ url('admin-article-delete', { id: article.id }) }}">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

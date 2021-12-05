@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Dto;
 
 use DateTime;
-use DateTimeImmutable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ArticleCreateRequest
@@ -22,16 +21,11 @@ class ArticleCreateRequest
     public string $content;
 
     #[Assert\NotBlank]
-    #[Assert\Type(DateTimeImmutable::class)]
-    public DateTimeImmutable $createdAt;
-
-    #[Assert\NotBlank]
     #[Assert\Type(DateTime::class)]
     public DateTime $publishedAt;
 
     public function __construct()
     {
-        $this->createdAt = new DateTimeImmutable();
         $this->publishedAt = new DateTime();
     }
 }

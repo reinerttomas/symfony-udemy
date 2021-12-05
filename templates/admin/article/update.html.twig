@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Hello Article!{% endblock %}
 
@@ -9,7 +9,7 @@
             <h2>{{ app.request.attributes.get("_controller") }}</h2>
         </div>
 
-        {{ include('flash.html.twig') }}
+        {{ include('admin/flash.html.twig') }}
 
         {{ form(form) }}
     </div>

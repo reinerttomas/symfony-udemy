@@ -25,7 +25,6 @@ class ArticleCreateService
         $article = new Article(
             $request->title,
             $request->content,
-            $request->createdAt,
             $request->publishedAt,
         );
 

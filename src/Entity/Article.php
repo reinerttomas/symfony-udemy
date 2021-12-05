@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use App\Utils\Strings;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\String\Slugger\AsciiSlugger;
-use function Symfony\Component\String\u;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -60,12 +60,11 @@ class Article
     public function __construct(
         string $title,
         string $content,
-        DateTimeImmutable $createdAt,
         DateTime $publishedAt,
     ) {
         $this->changeTitle($title);
         $this->content = $content;
-        $this->createdAt = $createdAt;
+        $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = null;
         $this->publishedAt = $publishedAt;
         $this->isRemoved = false;
@@ -89,7 +88,7 @@ class Article
     public function changeTitle(string $title): Article
     {
         $slugger = new AsciiSlugger();
-        $slug = u($title)->lower()->toString();
+        $slug = Strings::unicode($title)->lower()->toString();
         $slug = $slugger->slug($slug)->toString();
 
         $this->title = $title;
@@ -120,9 +119,9 @@ class Article
         return $this->updatedAt;
     }
 
-    public function changeUpdatedAt(DateTime $updatedAt): Article
+    public function updated(): Article
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new DateTime();
 
         return $this;
     }
@@ -144,7 +143,7 @@ class Article
         return $this->isRemoved;
     }
 
-    public function remove(): Article
+    public function removed(): Article
     {
         $this->isRemoved = true;
 

@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace App\Utils;
 
+use Symfony\Component\String\UnicodeString;
+
 class Strings
 {
-    public static function startsWith(string $haystack, string $needle): bool
+    public static function unicode(?string $string = ''): UnicodeString
     {
-        return str_starts_with($haystack, $needle);
+        return new UnicodeString($string ?? '');
     }
 }

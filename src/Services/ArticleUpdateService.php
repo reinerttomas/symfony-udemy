@@ -7,7 +7,6 @@ use App\Dto\ArticleUpdateRequest;
 use App\Entity\Article;
 use App\Exception\ORM\ORMStoreException;
 use App\Repository\ArticleRepository;
-use DateTime;
 
 class ArticleUpdateService
 {
@@ -26,8 +25,8 @@ class ArticleUpdateService
         $article
             ->changeTitle($request->title)
             ->changeContent($request->content)
-            ->changeUpdatedAt(new DateTime())
-            ->changePublishedAt($request->publishedAt);
+            ->changePublishedAt($request->publishedAt)
+            ->updated();
 
         return $this->articleRepository->store($article);
     }

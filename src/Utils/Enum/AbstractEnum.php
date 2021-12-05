@@ -29,7 +29,9 @@ abstract class AbstractEnum implements EnumInterface
          * @var string|int $constValue
          */
         foreach ($class->getConstants() as $constName => $constValue) {
-            if (Strings::startsWith($constName, $this->getEnumPrefix())) {
+            $constUnicode = Strings::unicode($constName);
+
+            if ($constUnicode->startsWith($this->getEnumPrefix())) {
                 $constArray[$constName] = $constValue;
             }
         }

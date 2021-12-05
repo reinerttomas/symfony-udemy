@@ -36,8 +36,14 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ menu is same as('article') ? 'active' }}"
-                               href="{{ url('article-list') }}">
+                               href="{{ url('admin-article-list') }}">
                                 Article
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ menu is same as('user') ? 'active' }}"
+                               href="{{ url('admin-user-list') }}">
+                                User
                             </a>
                         </li>
                     </ul>

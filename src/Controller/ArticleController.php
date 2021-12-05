@@ -40,20 +40,20 @@ class ArticleController extends AbstractController
         $this->articleRemoveService = $articleRemoveService;
     }
 
-    #[Route('/article', name: 'article-list')]
+    #[Route('/article', name: 'admin-article-list')]
     public function index(): Response
     {
         $articles = $this->articleFetchService->getAllNotRemoved();
 
         return $this->render(
-            'article/index.html.twig',
+            'admin/article/index.html.twig',
             [
                 'articles' => $articles,
             ],
         );
     }
 
-    #[Route('/article/detail/{id}', name: 'article-detail')]
+    #[Route('/article/detail/{id}', name: 'admin-article-detail')]
     public function detail(int $id): Response
     {
         try {
@@ -63,14 +63,14 @@ class ArticleController extends AbstractController
         }
 
         return $this->render(
-            'article/detail.html.twig',
+            'admin/article/detail.html.twig',
             [
                 'article' => $article,
             ],
         );
     }
 
-    #[Route('/article/create', name: 'article-create')]
+    #[Route('/article/create', name: 'admin-article-create')]
     public function create(Request $request): Response
     {
         $articleCreateRequest = new ArticleCreateRequest();
@@ -84,7 +84,7 @@ class ArticleController extends AbstractController
                 $this->addFlashSuccess('Article create success.');
 
                 return $this->redirectToRoute(
-                    'article-detail',
+                    'admin-article-detail',
                     [
                         'id' => $article->getId(),
                     ],
@@ -95,14 +95,14 @@ class ArticleController extends AbstractController
         }
 
         return $this->render(
-            'article/create.html.twig',
+            'admin/article/create.html.twig',
             [
                 'form' => $form->createView(),
             ],
         );
     }
 
-    #[Route('/article/update/{id}', name: 'article-update')]
+    #[Route('/article/update/{id}', name: 'admin-article-update')]
     public function update(Request $request, int $id): Response
     {
         try {
@@ -122,7 +122,7 @@ class ArticleController extends AbstractController
                 $this->addFlashSuccess('Article update success.');
 
                 return $this->redirectToRoute(
-                    'article-detail',
+                    'admin-article-detail',
                     [
                         'id' => $article->getId(),
                     ],
@@ -133,14 +133,14 @@ class ArticleController extends AbstractController
         }
 
         return $this->render(
-            'article/update.html.twig',
+            'admin/article/update.html.twig',
             [
                 'form' => $form->createView(),
             ],
         );
     }
 
-    #[Route('/article/delete/{id}', name: 'article-delete')]
+    #[Route('/article/delete/{id}', name: 'admin-article-delete')]
     public function delete(int $id): Response
     {
         try {
@@ -156,6 +156,6 @@ class ArticleController extends AbstractController
             $this->addFlashError('Article delete error.');
         }
 
-        return $this->redirectToRoute('article-list');
+        return $this->redirectToRoute('admin-article-list');
     }
 }
