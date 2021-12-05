@@ -60,11 +60,12 @@ class Article
     public function __construct(
         string $title,
         string $content,
+        DateTimeImmutable $createdAt,
         DateTime $publishedAt,
     ) {
         $this->changeTitle($title);
         $this->content = $content;
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = $createdAt;
         $this->updatedAt = null;
         $this->publishedAt = $publishedAt;
         $this->isRemoved = false;
@@ -119,9 +120,9 @@ class Article
         return $this->updatedAt;
     }
 
-    public function updated(): Article
+    public function changeUpdatedAt(DateTime $updatedAt): Article
     {
-        $this->updatedAt = new DateTime();
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -143,7 +144,7 @@ class Article
         return $this->isRemoved;
     }
 
-    public function removed(): Article
+    public function markAsRemoved(): Article
     {
         $this->isRemoved = true;
 

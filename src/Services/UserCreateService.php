@@ -7,6 +7,7 @@ use App\Dto\UserCreateRequest;
 use App\Entity\User;
 use App\Exception\ORM\ORMStoreException;
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserCreateService
@@ -31,6 +32,7 @@ class UserCreateService
             $request->name,
             $request->surname,
             $request->email,
+            new DateTimeImmutable(),
         );
 
         $password = $this->userPasswordHasher->hashPassword($user, $request->password);

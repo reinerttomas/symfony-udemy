@@ -7,6 +7,7 @@ use App\Dto\UserUpdateRequest;
 use App\Entity\User;
 use App\Exception\ORM\ORMStoreException;
 use App\Repository\UserRepository;
+use DateTime;
 
 class UserUpdateService
 {
@@ -25,7 +26,7 @@ class UserUpdateService
         $user
             ->changeName($request->name, $request->surname)
             ->changeEmail($request->email)
-            ->updated();
+            ->changeUpdatedAt(new DateTime());
 
         return $this->userRepository->store($user);
     }

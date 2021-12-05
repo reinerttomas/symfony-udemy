@@ -7,6 +7,7 @@ use App\Dto\ArticleCreateRequest;
 use App\Entity\Article;
 use App\Exception\ORM\ORMStoreException;
 use App\Repository\ArticleRepository;
+use DateTimeImmutable;
 
 class ArticleCreateService
 {
@@ -25,6 +26,7 @@ class ArticleCreateService
         $article = new Article(
             $request->title,
             $request->content,
+            new DateTimeImmutable(),
             $request->publishedAt,
         );
 

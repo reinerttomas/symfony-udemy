@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Entity\Article;
 use App\Exception\ORM\ORMStoreException;
 use App\Repository\ArticleRepository;
+use DateTime;
 
 class ArticleRemoveService
 {
@@ -22,8 +23,8 @@ class ArticleRemoveService
     public function remove(Article $article): void
     {
         $article
-            ->removed()
-            ->updated();
+            ->markAsRemoved()
+            ->changeUpdatedAt(new DateTime());
 
         $this->articleRepository->store($article);
     }

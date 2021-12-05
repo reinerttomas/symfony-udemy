@@ -62,13 +62,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         string $name,
         string $surname,
         string $email,
+        DateTimeImmutable $createdAt,
     ) {
         $this->name = $name;
         $this->surname = $surname;
         $this->email = $email;
         $this->password = null;
         $this->roles = [];
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = $createdAt;
         $this->updatedAt = null;
     }
 
@@ -163,9 +164,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedAt;
     }
 
-    public function updated(): User
+    public function changeUpdatedAt(DateTime $updatedAt): User
     {
-        $this->updatedAt = new DateTime();
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

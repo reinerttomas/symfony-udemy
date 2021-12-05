@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Exception\ORM\ORMStoreException;
 use App\Exception\Runtime\AuthenticationException;
 use App\Repository\UserRepository;
+use DateTime;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserPasswordService
@@ -37,7 +38,7 @@ class UserPasswordService
 
         $password = $this->userPasswordHasher->hashPassword($user, $request->newPassword);
         $user->changePassword($password)
-            ->updated();
+            ->changeUpdatedAt(new DateTime());
 
         return $this->userRepository->store($user);
     }
