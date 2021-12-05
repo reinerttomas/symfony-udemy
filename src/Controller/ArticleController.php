@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Controller\Traits\FlashTrait;
 use App\Dto\ArticleCreateRequest;
 use App\Dto\ArticleUpdateRequest;
+use App\Entity\Article;
 use App\Exception\Logic\NotFoundException;
 use App\Exception\ORM\ORMStoreException;
 use App\Form\ArticleCreateType;
@@ -83,12 +84,7 @@ class ArticleController extends AbstractController
                 $article = $this->articleCreateService->createFromRequest($articleCreateRequest);
                 $this->addFlashSuccess('Article create success.');
 
-                return $this->redirectToRoute(
-                    'admin-article-detail',
-                    [
-                        'id' => $article->getId(),
-                    ],
-                );
+                return $this->redirectToDetail($article);
             } catch (ORMStoreException) {
                 $this->addFlashError('Article form error.');
             }
@@ -121,12 +117,7 @@ class ArticleController extends AbstractController
                 $article = $this->articleUpdateService->updateFromRequest($article, $articleUpdateRequest);
                 $this->addFlashSuccess('Article update success.');
 
-                return $this->redirectToRoute(
-                    'admin-article-detail',
-                    [
-                        'id' => $article->getId(),
-                    ],
-                );
+                return $this->redirectToDetail($article);
             } catch (ORMStoreException) {
                 $this->addFlashError('Article form error.');
             }
@@ -157,5 +148,15 @@ class ArticleController extends AbstractController
         }
 
         return $this->redirectToRoute('admin-article-list');
+    }
+
+    private function redirectToDetail(Article $article): Response
+    {
+        return $this->redirectToRoute(
+            'admin-article-detail',
+            [
+                'id' => $article->getId(),
+            ],
+        );
     }
 }
