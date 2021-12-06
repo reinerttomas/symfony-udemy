@@ -11,6 +11,7 @@ use App\Exception\Logic\NotFoundException;
 use App\Exception\ORM\ORMStoreException;
 use App\Form\ArticleCreateType;
 use App\Form\ArticleUpdateType;
+use App\Security\Voter\ArticleVoter;
 use App\Services\ArticleCreateService;
 use App\Services\ArticleFetchService;
 use App\Services\ArticleRemoveService;
@@ -44,6 +45,8 @@ class ArticleController extends AbstractController
     #[Route('/article', name: 'admin-article-list')]
     public function index(): Response
     {
+        $this->denyAccessUnlessGranted(ArticleVoter::VIEW);
+
         $articles = $this->articleFetchService->getAllNotRemoved();
 
         return $this->render(
@@ -57,6 +60,8 @@ class ArticleController extends AbstractController
     #[Route('/article/detail/{id}', name: 'admin-article-detail')]
     public function detail(int $id): Response
     {
+        $this->denyAccessUnlessGranted(ArticleVoter::VIEW);
+
         try {
             $article = $this->articleFetchService->get($id);
         } catch (NotFoundException $e) {
@@ -74,6 +79,8 @@ class ArticleController extends AbstractController
     #[Route('/article/create', name: 'admin-article-create')]
     public function create(Request $request): Response
     {
+        $this->denyAccessUnlessGranted(ArticleVoter::CREATE);
+
         $articleCreateRequest = new ArticleCreateRequest();
 
         $form = $this->createForm(ArticleCreateType::class, $articleCreateRequest);
@@ -101,6 +108,8 @@ class ArticleController extends AbstractController
     #[Route('/article/update/{id}', name: 'admin-article-update')]
     public function update(Request $request, int $id): Response
     {
+        $this->denyAccessUnlessGranted(ArticleVoter::UPDATE);
+
         try {
             $article = $this->articleFetchService->get($id);
         } catch (NotFoundException $e) {
@@ -134,6 +143,8 @@ class ArticleController extends AbstractController
     #[Route('/article/delete/{id}', name: 'admin-article-delete')]
     public function delete(int $id): Response
     {
+        $this->denyAccessUnlessGranted(ArticleVoter::DELETE);
+
         try {
             $article = $this->articleFetchService->get($id);
         } catch (NotFoundException $e) {

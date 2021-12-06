@@ -10,6 +10,7 @@ use App\Utils\Enum\AbstractEnum;
 class UserRole extends AbstractEnum
 {
     private const ROLE_USER = 'USER';
+    private const ROLE_BLOGGER = 'BLOGGER';
 
     private string $value;
 
@@ -28,6 +29,11 @@ class UserRole extends AbstractEnum
     public static function user(): UserRole
     {
         return new UserRole(self::ROLE_USER);
+    }
+
+    public static function blogger(): UserRole
+    {
+        return new UserRole(self::ROLE_BLOGGER);
     }
 
     public function getValue(): string
