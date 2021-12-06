@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\UserRole;
-use App\Utils\Arrays;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class ArticleVoter extends AbstractVoter
@@ -14,12 +12,6 @@ class ArticleVoter extends AbstractVoter
     public const CREATE = 'ARTICLE_CREATE';
     public const UPDATE = 'ARTICLE_UPDATE';
     public const DELETE = 'ARTICLE_DELETE';
-
-    #[Pure]
-    protected function supports(string $attribute, $subject): bool
-    {
-        return Arrays::containsValue($attribute, $this->getAttributes());
-    }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {

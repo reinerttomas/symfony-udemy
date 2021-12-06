@@ -4,12 +4,18 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\UserRole;
+use App\Utils\Arrays;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 abstract class AbstractVoter extends Voter
 {
+    protected function supports(string $attribute, $subject): bool
+    {
+        return Arrays::containsValue($attribute, $this->getAttributes());
+    }
+
     protected function isUserInstance(TokenInterface $token): bool
     {
         $user = $token->getUser();
